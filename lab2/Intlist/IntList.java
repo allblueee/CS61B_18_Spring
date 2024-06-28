@@ -87,7 +87,7 @@ public class IntList {
             last = last.rest;
         }
 
-        last = B;
+        last.rest = B;
 
         return A;
     }
@@ -98,9 +98,15 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        IntList res = new IntList(A.first, A.rest);
-
-        dcatenate(res, B);
+        IntList res = new IntList(A.first, null);
+        IntList lastOfRes = res;
+        IntList last = A;
+        while(last.rest != null) {
+            last = last.rest;
+            lastOfRes.rest = new IntList(last.first, null);
+            lastOfRes = lastOfRes.rest;
+        }
+        dcatenate(lastOfRes, B);
 
         return res;
     }
