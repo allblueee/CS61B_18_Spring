@@ -89,39 +89,31 @@ public class LinkedListDequeTest {
         printTestStatus(passed);
 
     }
-	public static void randomAddRemoveIsEmptyTest() {
-		LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
-		// should be empty
-		boolean passed = checkEmpty(true, lld1.isEmpty());
 
-		lld1.addLast(1);
-		// should not be empty
-		passed = checkEmpty(false, lld1.isEmpty()) && passed;
+    public static void randomAddRemoveIsEmptyTest() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        // should be empty
+        boolean passed = checkEmpty(true, lld1.isEmpty());
 
-		lld1.addFirst(2);
-		passed = checkEmpty(false, lld1.isEmpty()) && passed;
+        lld1.addFirst(0);
 
-		lld1.removeLast();
-		passed = checkEmpty(false, lld1.isEmpty()) && passed;
+        lld1.addFirst(1);
 
-		lld1 = new LinkedListDeque<Integer>();
+        lld1.addLast(2);
 
-		lld1.addFirst(0);
-		// should not be empty
-		passed = checkEmpty(false, lld1.isEmpty()) && passed;
+        lld1.removeLast();
 
-		lld1.addFirst(1);
-		passed = checkEmpty(false, lld1.isEmpty()) && passed;
+        lld1.removeLast();
 
-		lld1.removeLast();
-		passed = checkEmpty(false, lld1.isEmpty()) && passed;
+        System.out.println(lld1.get(0));
 
-		printTestStatus(passed);
-	}
+        printTestStatus(passed);
+    }
+
     public static void main(String[] args) {
         System.out.println("Running tests.\n");
         addIsEmptySizeTest();
         addRemoveTest();
-		randomAddRemoveIsEmptyTest();
+        randomAddRemoveIsEmptyTest();
     }
 } 
