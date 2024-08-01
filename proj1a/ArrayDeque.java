@@ -17,6 +17,8 @@ public class ArrayDeque<T> {
 
         boolean flag = false;
 
+        int origin_capacity = capacity;
+
         if (size + 1 == capacity) {
             capacity *= 2;
             flag = true;
@@ -26,28 +28,35 @@ public class ArrayDeque<T> {
             capacity /= 2;
             flag = true;
         }
-        if (flag) {
+
+        if(flag) {
             T[] list = (T[]) new Object[capacity];
-            System.arraycopy(_list, start, list, 0, size);
+
+            if(end >= start){
+                System.arraycopy(_list, start, list, 0, end - start);
+            } else {
+                System.arraycopy(_list, start, list, 0, origin_capacity - start);
+                System.arraycopy(_list, 0, list, origin_capacity - start, end);
+            }
+
             start = 0;
             end = size;
             _list = list;
         }
-
     }
 
     public void addFirst(T item) {
-        resize();
-        _list[start] = item;
         start = (start - 1 + capacity) % capacity;
+        _list[start] = item;
         size++;
+        resize();
     }
 
     public void addLast(T item) {
-        resize();
         _list[end] = item;
         end = (end + 1 + capacity) % capacity;
         size++;
+        resize();
     }
 
     public boolean isEmpty() {
