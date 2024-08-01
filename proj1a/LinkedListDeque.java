@@ -13,15 +13,16 @@ public class LinkedListDeque<T> {
         return getRecursiveHelper(sentinel.next, index);
     }
 
-    public T getRecursiveHelper(Node p, int index) {
-        if(index == 0) return p.item;
+    private T getRecursiveHelper(Node p, int index) {
+        if (index == 0) return p.item;
         return getRecursiveHelper(p.next, index - 1);
     }
 
-    public class Node {
+    private class Node {
         public Node prev;
         public Node next;
         public T item;
+
         public Node(T item) {
             this.item = item;
         }
@@ -30,9 +31,9 @@ public class LinkedListDeque<T> {
     public void addFirst(T item) {
         Node firstNode = new Node(item);
         firstNode.next = sentinel.next;
-        firstNode.prev = sentinel.next.prev;
+        firstNode.prev = sentinel;
+        sentinel.next.prev = firstNode;
         sentinel.next = firstNode;
-        sentinel.prev = firstNode;
         size++;
     }
 
@@ -53,15 +54,16 @@ public class LinkedListDeque<T> {
         return size;
     }
 
-    public void printDeque(){
+    public void printDeque() {
         Node p = sentinel.next;
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             System.out.print(p.item + " ");
             p = p.next;
         }
     }
 
-    public T removeFirst(){
+    public T removeFirst() {
+        if(size == 0) return null;
         Node delNode = sentinel.next;
         T item = delNode.item;
         sentinel.next.next.prev = sentinel;
@@ -71,7 +73,8 @@ public class LinkedListDeque<T> {
         return item;
     }
 
-    public T removeLast(){
+    public T removeLast() {
+        if(size == 0) return null;
         Node delNode = sentinel.prev;
         T item = delNode.item;
         sentinel.prev.prev.next = sentinel;
@@ -81,9 +84,9 @@ public class LinkedListDeque<T> {
         return item;
     }
 
-    public T get(int index){
+    public T get(int index) {
         Node p = sentinel.next;
-        for(int i = 0; i <= index; i++){
+        for (int i = 0; i <= index; i++) {
             p = p.next;
         }
         return p.item;
