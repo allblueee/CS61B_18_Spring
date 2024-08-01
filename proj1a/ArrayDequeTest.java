@@ -1,4 +1,3 @@
-
 public class ArrayDequeTest {
 
     public static void randomAddSizeTests(){
